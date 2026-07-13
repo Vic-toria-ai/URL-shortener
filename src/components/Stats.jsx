@@ -1,20 +1,43 @@
-const Stats = ({ shortUrl, originalUrl }) => {
+import { useState } from "react";
+
+const Stats = ({ links }) => {
+  const [copiedLink, setCopiedLink] = useState("");
+  async function handleCopy(value) {
+    try {
+      const result = await window.navigator.clipboard.writeText(value);
+      setCopiedLink(value);
+      console.log(result);
+    } catch (e) {
+      console.warn(e);
+    }
+  }
   return (
     <div className="bg-gray-100 pt-20">
       <div className="max-w-6xl mx-auto text-center mt-10 md:mt-0 p-8 ">
         {/* short linkbox */}
-        <div className="flex flex-col md:flex-row md:items-center bg-white p-8 font-semibold rounded-md mb-8 md:gap-4 md:py-2">
-          {shortUrl && (
-          <div className="w-full md:flex-1 ">
-            <span className="text-gray-800 md mr-4">{originalUrl}</span>
-            <hr className="md:hidden text-gray-300 m-2" />
-            <span className="text-cyan-500 ">{shortUrl}</span>
-          </div>
-        )}
-        <div>
-          <button className="bg-cyan-400 text-white mt-4 md:mt-0 py-2 px-8 rounded-md hover:bg-cyan-500 font-bold transition duration-300 w-full md:w-auto " >Copy</button>
-        </div>
-        </div>
+
+        {links &&
+          links.map((link) => (
+            <div
+              key={link.code}
+              className="flex flex-col md:flex-row md:items-center md:justify-between bg-white p-8 font-semibold rounded-md mb-8 md:gap-4 md:py-2"
+            >
+              <span className="text-gray-800">{link.original_url}</span>
+              <hr className="md:hidden text-gray-300 m-2" />
+
+              <div className=" flex flex-col md:flex-row md:items-center gap-4 mt-4 md:mt-0 ">
+                <span className="text-cyan-500 ">{link.short_url}</span>
+              
+                  <button
+                    onClick={() => handleCopy(link.short_url)}
+                    className={`${copiedLink === link.short_url ? "bg-purple-950" : "bg-cyan-400 hover:bg-cyan-500"} text-white mt-4 md:mt-0 py-2 px-8 rounded-md font-bold transition duration-300 w-full md:w-auto cursor-pointer`}
+                  >
+                    {copiedLink === link.short_url ? "Copied!" : "Copy"}
+                  </button>
+                
+              </div>
+            </div>
+          ))}
 
         <h2 className="text-center text-3xl font-bold text-gray-900">
           Advanced Statistics

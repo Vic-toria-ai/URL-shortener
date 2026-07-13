@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Form = ({ setShortUrl, setOriginalUrl }) => {
+const Form = ({links, setLinks, setShortUrl, setOriginalUrl }) => {
   const [url, setUrl] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,6 +33,8 @@ const Form = ({ setShortUrl, setOriginalUrl }) => {
         throw new Error("Failed to shorten url");
       }
       const data = await response.json();
+      console.log(data)
+      setLinks([data, ...links])
       setOriginalUrl(data.original_url);
       setShortUrl(data.short_url);
     } catch (error) {
@@ -67,7 +69,7 @@ const Form = ({ setShortUrl, setOriginalUrl }) => {
           <button
             type="submit"
             disabled={loading}
-            className="bg-cyan-400 text-white py-2 px-8 rounded-md flex justify-center items-center gap-2 hover:bg-cyan-500 font-bold transition duration-300 w-full md:w-auto disabled:opacity-60"
+            className="bg-cyan-400 text-white py-2 px-8 rounded-md flex justify-center items-center gap-2 hover:bg-cyan-500 font-bold transition duration-300 w-full md:w-auto disabled:opacity-60 cursor-pointer"
             onClick={handleSubmit}
           >
             {loading && <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>}
