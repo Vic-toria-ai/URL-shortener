@@ -8,6 +8,7 @@ const Form = ({links, setLinks, setShortUrl, setOriginalUrl }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // if there's no link, then....
     try {
       if (url.trim().length === 0) {
         setError("Please add a link");

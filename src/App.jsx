@@ -6,6 +6,7 @@ import Stats from "./components/Stats";
 import Footer from "./components/Footer";
 
 function App() {
+  // the states lives in this file because its the parents of 2 or more componenets that needs the same info, so instead of one owning it, we give it to to parent (app.jsx)
   const [shortUrl, setShortUrl] = useState("");
   const [originalUrl, setOriginalUrl]=useState("")
   const [links, setLinks]=useState([])

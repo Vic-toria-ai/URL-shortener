@@ -50,6 +50,7 @@ const Stats = ({ links }) => {
       </div>
 
       {/* the cards */}
+      {/* another way to do the cards parts is to map them in, but that was slightly more diffucult because of the positioning and all. */}
       <section className="relative max-w-6xl mx-auto mt-20 px-5 md:flex md:justify-between md:gap-4">
         {/* horizonal line */}
         <div className="absolute bg-cyan-400 left-1/2 -translate-x-1/2 top-16 w-2 h-[520px]  md:right-0 md:translate-x-0 md:top-1/2 md:h-2 md:w-[70%] md:left-[16%]"></div>
